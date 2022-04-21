@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,8 @@ Route::group(['prefix' => 'v1'], function() {
     });
 
     // Public Routes
+    Route::get('products', [ProductController::class, 'index']);
+    Route::get('products/{product}', [ProductController::class, 'show']);
     Route::get('/login', function(Request $request) {
         $token = User::find(1)->createToken('ma-token');
         return ['token' => $token->plainTextToken];
